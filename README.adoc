@@ -1,0 +1,45 @@
+= Wallboard API
+
+A REST API to manage a list of widgets registered for the wallboard.
+
+== Requirements
+* .Net Core sdk 2.0
+* Docker
+
+== Run with .Net CLI
+[source]
+----
+cd WallboardBack
+
+dotnet restore
+dotnet run
+----
+
+This will serve the API at http://localhost:5000/api/
+
+== Run with Docker 
+[source]
+----
+cd WallboardBack
+docker run --name wallboard-back -e "ASPNETCORE_URLS=http://+:5000" -p 5000:5000 -v ${PWD}:/app -w /app -it microsoft/dotnet
+
+dotnet restore
+dotnet run
+----
+
+This will serve the API at http://localhost:5000/api/
+
+To resume a previously exited Docker container :
+
+[source]
+----
+docker start wallboard-back
+docker attach wallboard-back
+
+dotnet restore
+dotnet run
+----
+
+== Build with Docker
+
+TODO
