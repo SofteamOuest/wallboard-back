@@ -4,7 +4,7 @@ A REST API to manage a list of widgets registered for the wallboard.
 
 == Requirements
 * .Net Core sdk 2.0
-* Docker
+* or Docker
 
 == Run with .Net CLI
 [source]
@@ -43,3 +43,12 @@ dotnet run
 == Build with Docker
 
 TODO
+
+* Use multistage build with sdk / runtime
+* expose port 5000
+
+== Sample data
+
+TODO
+
+* Some curl scripts to init the database

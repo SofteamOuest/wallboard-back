@@ -10,16 +10,16 @@ namespace WallboardBack.Controllers
     [Route("api/[controller]")]
     public class WidgetsController : Controller
     {
-        private readonly WallboardContext _context;
+        private readonly IWallboardContext _context;
 
-        public WidgetsController(WallboardContext context)
+        public WidgetsController(IWallboardContext context)
         {
             _context = context;
 
             if (_context.Widgets.Count() == 0)
             {
-                _context.Widgets.Add(new Widget { Name = "Google Calendar", Uri = "/widgets/google-calendar/index.html" });
-                _context.Widgets.Add(new Widget { Name = "Twitter", Uri = "/widgets/twitter/index.html" });
+                _context.Widgets.Add(new Widget { Name = "Google Calendar", Uri = "/google-calendar/index.html" });
+                _context.Widgets.Add(new Widget { Name = "Twitter", Uri = "/twitter/index.html" });
                 _context.SaveChanges();
             }
         }
