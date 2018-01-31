@@ -10,9 +10,9 @@ namespace WallboardBack.Controllers
     [Route("api/[controller]")]
     public class WidgetsController : Controller
     {
-        private readonly IWallboardContext _context;
+        private readonly WallboardContext _context;
 
-        public WidgetsController(IWallboardContext context)
+        public WidgetsController(WallboardContext context)
         {
             _context = context;
 

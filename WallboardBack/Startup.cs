@@ -28,8 +28,6 @@ namespace WallboardBack
             services.AddDbContext<WallboardContext>(opt => opt.UseInMemoryDatabase("WallboardBack"));
             services.AddCors();
             services.AddMvc();
-
-            services.AddTransient<IWallboardContext, WallboardContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
