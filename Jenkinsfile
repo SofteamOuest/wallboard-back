@@ -13,7 +13,7 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
 
         // montage nécessaire pour que le conteneur docker fonction (Docker In Docker)
         volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
-]) {
+) {
 
     node('wallboard-back-build-pod') {
         def now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
