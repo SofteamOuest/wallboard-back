@@ -44,11 +44,31 @@ dotnet run
 
 TODO
 
-* Use multistage build with sdk / runtime
+* Use multistage build
+** first with sdk to build executable
+** then with runtime to create docker image
 * expose port 5000
 
 == Sample data
 
-TODO
+Scripts to create data
 
-* Some curl scripts to init the database
+With Powershell
+
+[source]
+----
+Invoke-RestMethod http://localhost:5000/api/widgets
+Invoke-RestMethod http://localhost:5000/api/widgets/1
+
+Invoke-RestMethod -Uri http://localhost:5000/api/widgets -Method Post -Body '{"Name":"Google Calendar","Uri":"/google-calendar/index.html"}' -ContentType 'application/json'
+Invoke-RestMethod -Uri http://localhost:5000/api/widgets -Method Post -Body '{"Name":"Twitter","Uri":"/twitter/index.html"}' -ContentType 'application/json'
+
+Invoke-RestMethod -Uri http://localhost:5000/api/widgets/3 -Method Delete
+----
+
+With curl
+
+[source]
+----
+curl -H "Content-Type: application/json" -X POST -d '{"Name":"Test","Uri":"/test/test"}' http://localhost:5000/api/widgets
+----
