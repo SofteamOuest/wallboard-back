@@ -7,13 +7,11 @@ namespace WallboardBack.Tests.Helpers
 {
     internal class DbSetMock<T> where T : class, new()
     {
-        private readonly Mock<DbSet<T>> _mock;
-
-        public DbSet<T> Object { get { return _mock.Object; } }
+        public Mock<DbSet<T>> Moq { get; private set; } 
 
         public DbSetMock(IEnumerable<T> list)
         {
-            _mock = CreateMock(list);
+            Moq = CreateMock(list);
         }
 
         private Mock<DbSet<T>> CreateMock(IEnumerable<T> list)

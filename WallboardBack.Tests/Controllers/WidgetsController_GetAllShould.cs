@@ -1,35 +1,16 @@
 using System.Collections.Generic;
 using Xunit;
-using Moq;
-using WallboardBack.Controllers;
 using WallboardBack.Models;
-using WallboardBack.Tests.Helpers;
 
 namespace WallboardBack.Tests.Controllers
 {
-    public class WidgetsController_GetAllShould
+    public class WidgetsController_GetAllShould : WidgetsControllerUnitTest
     {
-        private readonly WidgetsController _controller;
-
-        public WidgetsController_GetAllShould() {
-            _controller = new WidgetsController(MockWallboardContext());
-        }
-
         [Fact]
         public void ReturnAnEnumerable()
         {
-            var result = _controller.GetAll();
+            var result = Controller.GetAll();
             Assert.IsAssignableFrom<IEnumerable<Widget>>(result);
-        }
-
-        private WallboardContext MockWallboardContext()
-        {
-            var widgetsDbSet = new DbSetMock<Widget>(new List<Widget>());
-
-            var dbContext = new Mock<WallboardContext>();
-            dbContext.Setup(m => m.Widgets).Returns(widgetsDbSet.Object);
-
-            return dbContext.Object;
         }
     }
 }

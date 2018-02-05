@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +13,6 @@ namespace WallboardBack.Controllers
         public WidgetsController(WallboardContext context)
         {
             _context = context;
-
-            if (_context.Widgets.Count() == 0)
-            {
-                _context.Widgets.Add(new Widget { Name = "Google Calendar", Uri = "/google-calendar/index.html" });
-                _context.Widgets.Add(new Widget { Name = "Twitter", Uri = "/twitter/index.html" });
-                _context.SaveChanges();
-            }
         }
 
         [HttpGet]
