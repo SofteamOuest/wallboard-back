@@ -58,12 +58,12 @@ With Powershell
 [source]
 ----
 Invoke-RestMethod http://localhost:5000/api/widgets
-Invoke-RestMethod http://localhost:5000/api/widgets/1
+Invoke-RestMethod http://localhost:5000/api/widgets/<guid>
 
 Invoke-RestMethod -Uri http://localhost:5000/api/widgets -Method Post -Body '{"Name":"Google Calendar","Uri":"/google-calendar/index.html"}' -ContentType 'application/json'
 Invoke-RestMethod -Uri http://localhost:5000/api/widgets -Method Post -Body '{"Name":"Twitter","Uri":"/twitter/index.html"}' -ContentType 'application/json'
 
-Invoke-RestMethod -Uri http://localhost:5000/api/widgets/3 -Method Delete
+Invoke-RestMethod -Uri http://localhost:5000/api/widgets/<guid> -Method Delete
 ----
 
 With curl

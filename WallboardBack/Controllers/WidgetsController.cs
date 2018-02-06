@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace WallboardBack.Controllers
         }
 
         [HttpGet("{id}", Name = "GetWidget")]
-        public IActionResult GetById(long id)
+        public IActionResult GetById(Guid id)
         {
             var item = _context.Widgets.FirstOrDefault(t => t.Id == id);
             if (item == null)
@@ -47,7 +48,7 @@ namespace WallboardBack.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] Widget item)
+        public IActionResult Update(Guid id, [FromBody] Widget item)
         {
             if (item == null || item.Id != id)
             {
@@ -69,7 +70,7 @@ namespace WallboardBack.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public IActionResult Delete(Guid id)
         {
             var widget = _context.Widgets.FirstOrDefault(t => t.Id == id);
             if (widget == null)
