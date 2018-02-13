@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using WallboardBack.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace WallboardBack
 {
@@ -28,6 +29,11 @@ namespace WallboardBack
             services.AddDbContext<WallboardContext>(opt => opt.UseInMemoryDatabase("WallboardBack"));
             services.AddCors();
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Wallboard API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +48,14 @@ namespace WallboardBack
             {
                 builder.AllowAnyOrigin();
             });
-            
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wallboard API V1");
+            });
+
             app.UseMvc();
         }
     }
