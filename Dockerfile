@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk AS build-env
+FROM microsoft/dotnet:sdk
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -12,5 +12,5 @@ RUN dotnet publish -c Release -o out
 # build runtime image
 FROM microsoft/dotnet:runtime
 WORKDIR /app
-COPY --from=build-env /app/out ./
+COPY --from=0 /app/out ./
 ENTRYPOINT ["dotnet", "WallboardBack.dll"]
