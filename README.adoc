@@ -50,6 +50,7 @@ dotnet run
 == Build with Docker
 
 Uses a multistage build to construct the docker image:
+
 * first with dotnet:sdk to build executable
 * then with dotnet:runtime to create docker image
 
