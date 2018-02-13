@@ -25,10 +25,26 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         container('dotnet') {
             sh 'dotnet restore'
             sh 'dotnet build'
-            sh 'dotnet test'
+            # see issue https://github.com/Microsoft/vstest/issues/1129 
+            sh 'dotnet test ./WallboardBack.Tests/WallboardBack.Tests.csproj --no-build'
         }
 
         container('docker') {
+            stage('build docker image') {
+                    sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/wallboard-back:$now ."
+
+                    sh 'mkdir /etc/docker'
+
+                    // le registry est insecure (pas de https)
+                    sh 'echo {"insecure-registries" : ["registry.k8.wildwidewest.xyz"]} > /etc/docker/daemon.json'
+
+                    withCredentials([string(credentialsId: 'nexus_password', variable: 'NEXUS_PWD')]) {
+
+                         sh "docker login -u admin -p ${NEXUS_PWD} registry.k8.wildwidewest.xyz"
+                    }
+
+                    sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/wallboard-back:$now"
+            }
         }
 
         container('kubectl') {
