@@ -6,6 +6,8 @@ A REST API to manage a list of widgets registered for the wallboard.
 * .Net Core sdk 2.0
 * or Docker
 
+The dotnet docker images are quite large (as of Feb. 2018) so you have to be patient.
+
 == Run with .Net CLI
 [source]
 ----
@@ -18,6 +20,11 @@ dotnet run
 This will serve the API at http://localhost:5000/api/
 
 == Run with Docker 
+
+You have to set an environment variable 
+`"ASPNETCORE_URLS=http://+:5000"`
+to allow the container to listen to all incoming ips.
+
 [source]
 ----
 cd WallboardBack
@@ -42,12 +49,23 @@ dotnet run
 
 == Build with Docker
 
-TODO
+Uses a multistage build to construct the docker image:
+* first with dotnet:sdk to build executable
+* then with dotnet:runtime to create docker image
 
-* Use multistage build
-** first with sdk to build executable
-** then with runtime to create docker image
-* expose port 5000
+Port 5000 is exposed automatically, although you have
+to set an environment variable 
+`"ASPNETCORE_URLS=http://+:5000"` to allow the container
+to listen to all incoming ips.
+
+[source]
+----
+docker build -t wallboard_dotnetapp .
+docker run --rm -e "ASPNETCORE_URLS=http://+:5000" -p 5000:5000 wallboard_dotnetapp
+----
+
+This will serve the API at http://localhost:5000/api/
+
 
 == Sample data
 
