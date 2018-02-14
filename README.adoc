@@ -47,22 +47,17 @@ dotnet restore
 dotnet run
 ----
 
-== Build with Docker
+== Build Docker image
 
-Uses a multistage build to construct the docker image:
-
-* first with dotnet:sdk to build executable
-* then with dotnet:runtime to create docker image
-
-Port 5000 is exposed automatically, although you have
-to set an environment variable 
-`"ASPNETCORE_URLS=http://+:5000"` to allow the container
-to listen to all incoming ips.
+We do not support multistage build for now so you need both
+Docker and .Net Core SDK to build the image.
 
 [source]
 ----
+dotnet publish -c Release -o out
+
 docker build -t wallboard_dotnetapp .
-docker run --rm -e "ASPNETCORE_URLS=http://+:5000" -p 5000:5000 wallboard_dotnetapp
+docker run --rm -p 5000:5000 wallboard_dotnetapp
 ----
 
 This will serve the API at http://localhost:5000/api/
@@ -91,3 +86,5 @@ With curl
 ----
 curl -H "Content-Type: application/json" -X POST -d '{"Name":"Test","Uri":"/test/test"}' http://localhost:5000/api/widgets
 ----
+
+A Swagger UI is also available

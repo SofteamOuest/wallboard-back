@@ -25,10 +25,14 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         container('dotnet') {
             // opt out dotnet telemetry
             sh 'env DOTNET_CLI_TELEMETRY_OPTOUT=1'
+
             sh 'dotnet restore'
             sh 'dotnet build'
-            // see issue https://github.com/Microsoft/vstest/issues/1129 
+
+            // see issue https://github.com/Microsoft/vstest/issues/1129
             sh 'dotnet test ./WallboardBack.Tests/WallboardBack.Tests.csproj --no-build'
+
+			sh 'dotnet publish -c Release -o out'
         }
 
         container('docker') {
