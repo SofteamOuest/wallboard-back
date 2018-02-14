@@ -7,7 +7,7 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         // un conteneur pour le build dotnet
         containerTemplate(name: 'dotnet', image: 'microsoft/dotnet', ttyEnabled: true, command: 'cat'),
         // un conteneur pour construire les images docker
-        containerTemplate(name: 'docker', image: 'docker:17.12', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'docker', image: 'docker:18.02', command: 'cat', ttyEnabled: true),
         // un conteneur pour déployer les services kubernetes
         containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)],
 
@@ -23,6 +23,8 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         }
 
         container('dotnet') {
+            // opt out dotnet telemetry
+            sh 'env DOTNET_CLI_TELEMETRY_OPTOUT=1'
             sh 'dotnet restore'
             sh 'dotnet build'
             // see issue https://github.com/Microsoft/vstest/issues/1129 
@@ -31,6 +33,7 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
 
         container('docker') {
             stage('build docker image') {
+                    sh 'env DOTNET_CLI_TELEMETRY_OPTOUT=1'
                     sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/wallboard-back:$now ."
 
                     sh 'mkdir /etc/docker'
