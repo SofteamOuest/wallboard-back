@@ -7,7 +7,7 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         // un conteneur pour le build dotnet
         containerTemplate(name: 'dotnet', image: 'microsoft/dotnet', ttyEnabled: true, command: 'cat'),
         // un conteneur pour construire les images docker
-        containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'docker', image: 'docker:17.12', command: 'cat', ttyEnabled: true),
         // un conteneur pour déployer les services kubernetes
         containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)],
 
