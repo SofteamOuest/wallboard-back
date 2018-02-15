@@ -55,6 +55,9 @@ podTemplate(label: 'wallboard-back-build-pod', nodeSelector: 'medium', container
         }
 
         container('kubectl') {
-        }
+                build job: "wallboard-back-run/master",
+                                  wait: false,
+                                  parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
+	}
     }
 }
