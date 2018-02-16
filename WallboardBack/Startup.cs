@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using WallboardBack.Models;
 using Swashbuckle.AspNetCore.Swagger;
-
 namespace WallboardBack
 {
     public class Startup
@@ -53,7 +46,7 @@ namespace WallboardBack
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wallboard API V1");
+                c.SwaggerEndpoint("v1/swagger.json", "Wallboard API V1");
             });
 
             app.UseMvc();
