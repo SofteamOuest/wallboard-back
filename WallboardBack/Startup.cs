@@ -42,14 +42,11 @@ namespace WallboardBack
                 builder.AllowAnyOrigin();
             });
 
-            app.UseSwagger(c =>
-            {
-                c.PreSerializeFilters.Add((swaggerDoc, httpReq) => swaggerDoc.BasePath = httpReq.PathBase);
-            });
+            app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("v1/swagger.json", "Wallboard API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wallboard API V1");
             });
             
             app.UseMvc();
